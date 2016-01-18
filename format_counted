@@ -1,0 +1,45 @@
+import csv
+import geojson
+import re
+
+def newFeatureFromRow(row):
+  name = row[1]
+  month = row[5]
+  lat = row[8]
+  lng = row[9]
+  armed = row[15]
+  if lat == "39.78373" and lng == "-100.445882":
+    return None
+
+  try:
+    lat_f = float(lat)
+  except:
+    return None
+
+  try:
+    lng_f = float(lng)
+  except:
+    return None  
+
+
+  point = geojson.Point((lng_f, lat_f))
+  properties = {"name": name, "month": month, "armed": armed, "marker-size":"small", "marker-color":"#111"}
+
+  return geojson.Feature(geometry=point, properties=properties)
+
+
+with open('the-counted.csv') as csvfile:
+  reader = csv.reader(csvfile, delimiter=',')
+  features = []
+  skipped = 0
+
+  for row in reader:
+    feature = newFeatureFromRow(row)
+    if (feature != None):
+      features.append(feature)
+    else:
+      skipped += 1
+  
+  featureCollection = geojson.FeatureCollection(features)
+  print featureCollection
+    
