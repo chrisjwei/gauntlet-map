@@ -5,10 +5,10 @@ $(document).ready(function(){
   L.mapbox.accessToken = 'pk.eyJ1IjoiY2hyaXNqd2VpIiwiYSI6ImNpaml0aGR1ajAyeDV0dG01NG10cjM5NmQifQ.ot1jmLRF2Ooi2xC8ZQ0Qjg';
 
   var map = L.mapbox.map('map_geo', 'mapbox.dark',{
-        minZoom: 2,
+        minZoom: 3,
         maxZoom: 15
     })
-    .setView([44.967586, -103.772234], 2)
+    .setView([44.967586, -103.772234], 3)
 
   var featureLayer = L.mapbox.featureLayer()
     .addTo(map);
